@@ -24,6 +24,9 @@ const MyReview = () => {
                                             Service name
                                         </th>
                                         <th scope="col" className="py-3 px-6">
+                                            Service image
+                                        </th>
+                                        <th scope="col" className="py-3 px-6">
                                             Review
                                         </th>
                                         <th scope="col" className="py-3 px-6">
@@ -37,6 +40,15 @@ const MyReview = () => {
                                         <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             Apple MacBook Pro 17"
                                         </th>
+
+                                        <td className="py-4 px-6">
+                                            <div className="avatar">
+                                                <div className="w-24 rounded-xl">
+                                                    <img src="https://placeimg.com/192/192/people" alt='img' />
+                                                </div>
+                                            </div>
+                                        </td>
+
                                         <td className="py-4 px-6">
                                             Sliver
                                         </td>
@@ -44,15 +56,19 @@ const MyReview = () => {
                                         <td className="flex items-center py-4 px-6 space-x-3">
 
                                             {/* Edit  */}
-                                            <label htmlFor="my-modal-3" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</label>
+                                            <label htmlFor="my-modal-3" className="font-medium text-blue-600 dark:text-blue-500 cursor-pointer hover:underline">Edit</label>
 
                                             <input type="checkbox" id="my-modal-3" className="modal-toggle" />
                                             <div className="modal">
                                                 <div className="modal-box relative">
                                                     <label htmlFor="my-modal-3" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
 
-                                                    <h3 className="text-lg font-bold">Congratulations random Internet user!</h3>
-                                                    <p className="py-4">You've been selected for a chance to get one year of subscription to use Wikipedia for free!</p>
+                                                    <form>
+                                                        <label htmlFor="message" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Your Review</label>
+                                                        <textarea id="message" rows="4" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Your review..."></textarea>
+
+                                                        <input className='btn bg-yellow-400 border-0 mt-5' type="submit" value="Update" />
+                                                    </form>
 
                                                 </div>
                                             </div>
