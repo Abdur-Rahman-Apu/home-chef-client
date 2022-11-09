@@ -7,6 +7,7 @@ import Services from "../../Components/Services/Services/Services"
 import Main from "../../Layouts/Main"
 import Home from "../../Components/Home/Home/Home"
 import AddService from "../../Components/AddService/AddService"
+import MyReview from "../../Components/MyReview/MyReview/MyReview"
 
 
 export const router = createBrowserRouter([
@@ -37,6 +38,10 @@ export const router = createBrowserRouter([
             {
                 path: '/addService',
                 element: <AddService></AddService>
+            },
+            {
+                path: '/myReview',
+                element: <MyReview></MyReview>
             },
             {
                 path: '/service/:id',
