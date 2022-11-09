@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Footer from '../Shared/Footer/Footer';
 import Navbar from '../Shared/Navbar/Navbar';
 import google from '../../Assets/Google logo/google.svg'
@@ -8,9 +8,12 @@ import toast from 'react-hot-toast';
 
 const Login = () => {
 
-    const { user, logIn, setUser, googleLogIn } = useContext(AuthContext)
+    const { user, logIn, setUser, googleLogIn, resetPassword } = useContext(AuthContext)
 
+    const location = useLocation()
+    const navigate = useNavigate()
 
+    const from = location?.state?.form.pathname || '/'
 
     const handleLogIn = (event) => {
         event.preventDefault()
@@ -22,13 +25,14 @@ const Login = () => {
                 const user = result.user;
                 setUser(user)
                 toast.success("Log in Successfully")
-
+                navigate(from, { replace: true })
             })
             .catch(error => console.log(error))
 
     }
 
 
+    // handle google log in 
     const handleGoogleLogIn = () => {
         googleLogIn()
             .then(result => {
@@ -37,6 +41,27 @@ const Login = () => {
                 toast.success("Successfully log in")
             })
             .catch(error => console.log(error))
+    }
+
+    //forget password
+    const handleResetPassword = (event) => {
+        const form = event.target.parentElement.parentElement;
+        console.log(form);
+        const email = form?.email?.value;
+        console.log(email);
+
+        if (email) {
+            resetPassword(email)
+                .then(() => {
+                    toast.success("Check your email to reset password")
+                })
+                .catch(error => {
+                    toast.error("Unsuccessfully, password is not reset.")
+                })
+        } else {
+            toast.error("Please enter your email to reset password")
+        }
+
     }
     return (
         <div>
@@ -55,7 +80,7 @@ const Login = () => {
                             <input type="password" name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required="" />
                         </div>
                         <div class="flex items-start">
-                            <Link to="#" class=" text-sm text-blue-700 hover:underline dark:text-blue-500">Lost Password?</Link>
+                            <button onClick={handleResetPassword} class=" text-sm text-blue-700 hover:underline dark:text-blue-500">Lost Password?</button>
                         </div>
                         <button type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Login to your account</button>
                         <div class="text-sm font-medium text-gray-500 dark:text-gray-300">

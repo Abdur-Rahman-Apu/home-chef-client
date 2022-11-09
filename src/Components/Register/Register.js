@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../Contexts/AuthProvider/AuthProvider';
 import Footer from '../Shared/Footer/Footer';
 import Navbar from '../Shared/Navbar/Navbar';
@@ -8,6 +8,10 @@ import Navbar from '../Shared/Navbar/Navbar';
 const Register = () => {
 
     const { user, createUser, updateUserProfile } = useContext(AuthContext)
+    const navigate = useNavigate()
+    const location = useLocation()
+
+    const from = location?.state?.form?.pathname || '/'
 
     const handleRegister = (event) => {
         event.preventDefault()
@@ -29,7 +33,8 @@ const Register = () => {
 
                 updateUserProfile(profile)
                     .then(() => {
-                        toast.success('User logged in successfully')
+                        toast.success('User registered in successfully')
+                        navigate(from, { replace: true })
 
                     })
                     .catch(error => {
