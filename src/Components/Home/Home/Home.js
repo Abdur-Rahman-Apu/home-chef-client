@@ -19,7 +19,7 @@ const Home = () => {
     }, [])
     return (
         <div className='mx-8'>
-            <Navbar></Navbar>
+
             <Banner></Banner>
             <div className='mt-10'>
                 <div className="service-title text-center">

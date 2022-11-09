@@ -49,7 +49,7 @@ const Register = () => {
     }
     return (
         <div>
-            <Navbar></Navbar>
+
 
             <div className='flex justify-center my-10'>
                 <div className="p-4 w-full max-w-sm bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
@@ -87,7 +87,7 @@ const Register = () => {
             </div>
 
 
-            <Footer></Footer>
+
         </div>
 
     );

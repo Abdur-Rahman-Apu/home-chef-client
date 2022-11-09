@@ -1,7 +1,5 @@
 import React, { useContext } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import Footer from '../Shared/Footer/Footer';
-import Navbar from '../Shared/Navbar/Navbar';
 import google from '../../Assets/Google logo/google.svg'
 import { AuthContext } from '../Contexts/AuthProvider/AuthProvider';
 import toast from 'react-hot-toast';
@@ -65,7 +63,7 @@ const Login = () => {
     }
     return (
         <div>
-            <Navbar></Navbar>
+
 
             <div className='flex justify-center my-10'>
                 <div class="p-4 w-full max-w-sm bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
@@ -102,7 +100,7 @@ const Login = () => {
             </div>
 
 
-            <Footer></Footer>
+
         </div>
 
 
