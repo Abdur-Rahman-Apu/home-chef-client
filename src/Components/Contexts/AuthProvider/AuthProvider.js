@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, sendPasswordResetEmail } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, sendPasswordResetEmail, updateProfile } from "firebase/auth";
 import { app } from '../../../Firebase/firebase.init';
 
 
@@ -15,16 +15,19 @@ const AuthProvider = ({ children }) => {
 
     //create user using email
     const createUser = (email, password) => {
+        setLoading(true)
         return createUserWithEmailAndPassword(auth, email, password);
     }
 
     //log in with email
     const logIn = (email, password) => {
+        setLoading(true)
         return signInWithEmailAndPassword(auth, email, password)
     }
 
     //log out
     const logOut = () => {
+        setLoading(true)
         return signOut(auth);
     }
 
@@ -32,6 +35,7 @@ const AuthProvider = ({ children }) => {
     const googleProvider = new GoogleAuthProvider();
 
     const googleLogIn = () => {
+        setLoading(true)
         return signInWithPopup(auth, googleProvider);
     }
 
@@ -42,15 +46,18 @@ const AuthProvider = ({ children }) => {
         return sendPasswordResetEmail(auth, auth.currentUser.email)
     }
 
+    //update profile
+    const updateUserProfile = (profile) => {
+        return updateProfile(auth.currentUser, profile)
+    }
+
 
 
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-            if (user == null) {
-                setUser(currentUser)
-                // setLoading(false)
-            }
+            setUser(currentUser)
+            setLoading(false)
         })
 
         return () => {
@@ -65,7 +72,8 @@ const AuthProvider = ({ children }) => {
         logOut,
         googleLogIn,
         resetPassword,
-        setUser
+        setUser,
+        updateUserProfile
     }
 
     return (

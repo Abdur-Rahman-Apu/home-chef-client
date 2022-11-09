@@ -8,9 +8,9 @@ import toast from 'react-hot-toast';
 
 const Login = () => {
 
-    const { user, logIn, setUser } = useContext(AuthContext)
+    const { user, logIn, setUser, googleLogIn } = useContext(AuthContext)
 
-    const
+
 
     const handleLogIn = (event) => {
         event.preventDefault()
@@ -23,10 +23,20 @@ const Login = () => {
                 setUser(user)
                 toast.success("Log in Successfully")
 
-
             })
             .catch(error => console.log(error))
 
+    }
+
+
+    const handleGoogleLogIn = () => {
+        googleLogIn()
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+                toast.success("Successfully log in")
+            })
+            .catch(error => console.log(error))
     }
     return (
         <div>
@@ -58,7 +68,7 @@ const Login = () => {
                         <p class="text-center font-semibold mx-4 mb-0">OR</p>
                     </div>
 
-                    <button className='text-center w-full card flex-row h-11  bg-base-100 border shadow-lg justify-center items-center'>
+                    <button onClick={handleGoogleLogIn} className='text-center w-full card flex-row h-11  bg-base-100 border shadow-lg justify-center items-center'>
                         <img className='h-7 mr-2' src={google} alt="google" />
                         Log in with google
 

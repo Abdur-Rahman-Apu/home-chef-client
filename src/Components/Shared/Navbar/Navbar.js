@@ -6,16 +6,22 @@ import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
 
 const Navbar = () => {
 
-    const { user, logOut } = useContext(AuthContext)
+    const { user, logOut, setUser } = useContext(AuthContext)
+
+
 
 
     const handleLogOut = () => {
         logOut()
             .then(() => {
                 toast.success("Successfully log out")
+
+
             })
             .catch(error => console.log(error))
     }
+
+
 
     const menuItems = <>
         <li>
@@ -27,7 +33,6 @@ const Navbar = () => {
         <li>
             <Link to='/blog' className="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Blog</Link>
         </li>
-
 
 
     </>
@@ -56,12 +61,23 @@ const Navbar = () => {
 
                         {menuItems}
 
+                        {
+                            user?.email ? <>
+                                <li>
+                                    <Link to='/addService' className="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"> Add service</Link>
+                                </li>
+                                <li>
+                                    <Link to='/myReview' className="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">My Review</Link>
+                                </li>
+                            </> : ""
+                        }
+
 
                     </ul>
                 </div>
                 <div className="navbar-end">
                     {
-                        user.email ?
+                        user?.email ?
                             <button onClick={handleLogOut} type="button" class="focus:outline-none  bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:focus:ring-yellow-900">Log out</button>
                             :
                             <Link to='/login'><button type="button" class="focus:outline-none  bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:focus:ring-yellow-900">Log In</button></Link>
