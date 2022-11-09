@@ -3,9 +3,6 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, si
 import { app } from '../../../Firebase/firebase.init';
 
 
-
-
-
 export const AuthContext = createContext()
 const auth = getAuth(app);
 const AuthProvider = ({ children }) => {
@@ -73,7 +70,8 @@ const AuthProvider = ({ children }) => {
         googleLogIn,
         resetPassword,
         setUser,
-        updateUserProfile
+        updateUserProfile,
+        loading
     }
 
     return (
