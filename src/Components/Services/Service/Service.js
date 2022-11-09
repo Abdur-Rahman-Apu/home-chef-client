@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { PhotoView } from 'react-photo-view';
 
 const Service = ({ service }) => {
     const { _id, title, image, price, description } = service;
@@ -10,8 +11,9 @@ const Service = ({ service }) => {
 
         <div className="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 mb-10 ">
 
-            <img className="rounded-t-lg h-64 w-full" src={image} alt="" />
-
+            <PhotoView src={image}>
+                <img className="rounded-t-lg h-64 w-full" src={image} alt="" />
+            </PhotoView>
             <div className="p-5">
 
                 <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{title}</h5>

@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
-import Footer from '../../Shared/Footer/Footer';
-import Navbar from '../../Shared/Navbar/Navbar';
+import { PhotoProvider, PhotoView } from 'react-photo-view';
 import Service from '../Service/Service';
 
 const Services = () => {
@@ -36,12 +35,13 @@ const Services = () => {
             <div className='mx-4'>
 
                 <h1 className="text-3xl font-bold text-center my-4" >Services</h1>
-                <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-items-center my-10'>
-                    {
-                        services.map(service => <Service key={service._id} service={service}></Service>)
-                    }
-                </div>
-
+                <PhotoProvider>
+                    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-items-center my-10'>
+                        {
+                            services.map((service, index) => <Service key={index} service={service}></Service>)
+                        }
+                    </div>
+                </PhotoProvider>
             </div>
         );
     }
