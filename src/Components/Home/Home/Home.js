@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Service from '../../Services/Service/Service';
 import Navbar from '../../Shared/Navbar/Navbar';
 import Banner from '../Banner/Banner';
@@ -29,6 +30,10 @@ const Home = () => {
                     {
                         services.map(service => <Service key={service._id} service={service}></Service>)
                     }
+                </div>
+
+                <div className='text-center'>
+                    <Link to="/services" className="text-black bg-yellow-400 hover:bg-yellow-500  hover:text-white focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">See All</Link>
                 </div>
             </div>
         </div>
