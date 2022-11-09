@@ -1,6 +1,9 @@
 import React from 'react';
 
 const AddService = () => {
+
+    document.title = "HomeChef - Add Service"
+
     return (
         <div>
             <h1 className='text-5xl font-bold my-5 text-center'>Add a service</h1>

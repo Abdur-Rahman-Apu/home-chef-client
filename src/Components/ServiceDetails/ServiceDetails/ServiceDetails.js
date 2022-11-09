@@ -9,6 +9,8 @@ import Footer from '../../Shared/Footer/Footer';
 
 const ServiceDetails = () => {
 
+    document.title = "HomeChef - Service Details"
+
     const { user } = useContext(AuthContext);
 
     const data = useLoaderData()

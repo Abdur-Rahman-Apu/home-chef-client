@@ -1,6 +1,9 @@
 import React from 'react';
 
 const Blog = () => {
+
+    document.title = "HomeChef - Blog"
+
     return (
         <div>
 

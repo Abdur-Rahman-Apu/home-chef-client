@@ -6,6 +6,7 @@ import Banner from '../Banner/Banner';
 
 const Home = () => {
 
+    document.title = "HomeChef - Home"
 
     const [services, setServices] = useState([])
 

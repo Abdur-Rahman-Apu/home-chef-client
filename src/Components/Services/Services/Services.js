@@ -5,6 +5,8 @@ import Service from '../Service/Service';
 
 const Services = () => {
 
+    document.title = "HomeChef - Services"
+
     const [services, setServices] = useState([])
 
     useEffect(() => {

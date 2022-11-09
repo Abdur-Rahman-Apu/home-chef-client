@@ -6,6 +6,8 @@ import toast from 'react-hot-toast';
 
 const Login = () => {
 
+    document.title = "HomeChef - Log in"
+
     const { user, logIn, setUser, googleLogIn, resetPassword } = useContext(AuthContext)
 
     const location = useLocation()

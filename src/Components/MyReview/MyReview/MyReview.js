@@ -5,6 +5,7 @@ import './MyReview.css'
 
 const MyReview = () => {
 
+    document.title = "HomeChef - My Review"
     const { user } = useContext(AuthContext)
 
     return (
