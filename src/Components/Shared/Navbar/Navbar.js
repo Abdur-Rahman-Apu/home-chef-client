@@ -1,8 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import Logo from '../../../Assets/Logo/Logo.png'
+import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
 
 const Navbar = () => {
+
+    const { user, logOut } = useContext(AuthContext)
+
+
+    const handleLogOut = () => {
+        logOut()
+            .then(() => {
+                toast.success("Successfully log out")
+            })
+            .catch(error => console.log(error))
+    }
 
     const menuItems = <>
         <li>
@@ -14,6 +27,9 @@ const Navbar = () => {
         <li>
             <Link to='/blog' className="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Blog</Link>
         </li>
+
+
+
     </>
     return (
         <div className='w-100'>
@@ -44,7 +60,12 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end">
-                    <Link to='/login'><button type="button" class="focus:outline-none  bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:focus:ring-yellow-900">Log In</button></Link>
+                    {
+                        user.email ?
+                            <button onClick={handleLogOut} type="button" class="focus:outline-none  bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:focus:ring-yellow-900">Log out</button>
+                            :
+                            <Link to='/login'><button type="button" class="focus:outline-none  bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:focus:ring-yellow-900">Log In</button></Link>
+                    }
                 </div>
             </div>
 

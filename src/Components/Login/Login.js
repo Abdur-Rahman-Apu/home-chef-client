@@ -1,24 +1,47 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Footer from '../Shared/Footer/Footer';
 import Navbar from '../Shared/Navbar/Navbar';
 import google from '../../Assets/Google logo/google.svg'
+import { AuthContext } from '../Contexts/AuthProvider/AuthProvider';
+import toast from 'react-hot-toast';
 
 const Login = () => {
+
+    const { user, logIn, setUser } = useContext(AuthContext)
+
+    const
+
+    const handleLogIn = (event) => {
+        event.preventDefault()
+        const form = event.target;
+        const email = form.email.value;
+        const password = form.password.value;
+        logIn(email, password)
+            .then(result => {
+                const user = result.user;
+                setUser(user)
+                toast.success("Log in Successfully")
+
+
+            })
+            .catch(error => console.log(error))
+
+    }
     return (
         <div>
             <Navbar></Navbar>
 
             <div className='flex justify-center my-10'>
                 <div class="p-4 w-full max-w-sm bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
-                    <form class="space-y-6" action="#">
+                    <form onSubmit={handleLogIn} class="space-y-6" action="#">
                         <h5 class="text-xl text-center font-medium text-gray-900 dark:text-white">Sign in to HouseChef</h5>
                         <div>
-                            <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Your email</label>
+                            <label htmlFor="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Your email</label>
                             <input type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="name@company.com" required="" />
                         </div>
                         <div>
-                            <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Your password</label>
+                            <label htmlFor="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Your password</label>
                             <input type="password" name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required="" />
                         </div>
                         <div class="flex items-start">
