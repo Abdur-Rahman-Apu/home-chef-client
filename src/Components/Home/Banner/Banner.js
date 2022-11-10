@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import BannerImage from '../../../Assets/Banner/banner-img.jpg';
 
 const Banner = () => {
@@ -16,7 +17,7 @@ const Banner = () => {
                         And you will receive your desired food within a very short time</p>
                 </div>
                 <div>
-                    <button type="button" class="text-white bg-yellow-400 hover:bg-yellow-500 focus:outline-none focus:ring-4 focus:ring-yellow-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:focus:ring-yellow-900">Services</button>
+                    <Link to='/services'><button type="button" class="text-white bg-yellow-400 hover:bg-yellow-500 focus:outline-none focus:ring-4 focus:ring-yellow-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:focus:ring-yellow-900">Services</button></Link>
                 </div>
             </div>
             <div className=" w-full lg:w-1/2">
