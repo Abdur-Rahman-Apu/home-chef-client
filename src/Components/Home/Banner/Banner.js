@@ -10,7 +10,7 @@ const Banner = () => {
                     <h1 className=" text-3xl leading-relaxed uppercase font-extrabold text-yellow-400  dark:text-white">Delicious food for your taste</h1>
                 </div>
                 <div className="sub-title">
-                    <p className='my-4 text-gray-500 dark:text-gray-400'> Welcome to my kitchen. Here you will find find which is totally home made.
+                    <p className='my-4 text-gray-500 dark:text-gray-400'> Welcome to my kitchen. Here you will find food which is totally home made.
 
                         <br />
                         And you will receive your desired food within a very short time</p>
