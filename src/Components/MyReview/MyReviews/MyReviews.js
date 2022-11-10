@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
 import MyReview from '../MyReview/MyReview';
 import '../MyReview/MyReview.css'
@@ -8,14 +8,27 @@ import '../MyReview/MyReview.css'
 const MyReviews = () => {
 
     document.title = "HomeChef - My Reviews"
-    const { user } = useContext(AuthContext)
+    const { user, logOut } = useContext(AuthContext)
+
+    const navigate = useNavigate()
 
     const [reviews, setReviews] = useState([])
 
     useEffect(() => {
-        fetch(`http://localhost:5000/reviews?email=${user?.email}`)
-            .then(res => res.json())
+        fetch(`http://localhost:5000/reviews?email=${user?.email}`, {
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('genius-token')}`
+            }
+        })
+            .then(res => {
+                if (res.status === 401 || res.status === 403) {
+                    logOut()
+                    navigate('/login')
+                }
+                return res.json()
+            })
             .then(data => setReviews(data))
+            .catch(error => console.log(error))
     }, [user?.email])
 
 

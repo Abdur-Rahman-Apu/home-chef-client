@@ -26,6 +26,26 @@ const Login = () => {
                 setUser(user)
                 toast.success("Log in Successfully")
                 navigate(from, { replace: true })
+                const currentUser = {
+                    email: user?.email
+                }
+                console.log(currentUser);
+
+                fetch('http://localhost:5000/jwt', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(currentUser)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log(data)
+
+                        localStorage.setItem('genius-token', data.token)
+                        navigate(from, { replace: true })
+                    })
+                    .catch(error => console.log(error))
             })
             .catch(error => console.log(error))
 
@@ -39,6 +59,8 @@ const Login = () => {
                 const user = result.user;
                 console.log(user);
                 toast.success("Successfully log in")
+
+
             })
             .catch(error => console.log(error))
     }
@@ -64,6 +86,8 @@ const Login = () => {
 
     }
 
+    console.log(loading);
+
     if (loading) {
         return <div class="text-center">
             <div role="status">
@@ -77,8 +101,6 @@ const Login = () => {
     } else {
         return (
             <div>
-
-
                 <div className='flex justify-center my-10'>
                     <div class="p-4 w-full max-w-sm bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
                         <form onSubmit={handleLogIn} class="space-y-6" action="#">
@@ -112,9 +134,6 @@ const Login = () => {
                         </button>
                     </div>
                 </div>
-
-
-
             </div>
 
 

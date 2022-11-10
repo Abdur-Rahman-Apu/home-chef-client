@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 import { AuthContext } from '../Contexts/AuthProvider/AuthProvider';
 
 const AddService = () => {
@@ -9,9 +10,11 @@ const AddService = () => {
 
     const [services, setServices] = useState([])
 
-    fetch('http://localhost:5000/services')
-        .then(res => res.json())
-        .then(data => setServices(data))
+    useEffect(() => {
+        fetch('http://localhost:5000/services')
+            .then(res => res.json())
+            .then(data => setServices(data))
+    }, [])
 
 
     const handleAddUser = (event) => {
@@ -53,6 +56,19 @@ const AddService = () => {
             },
             body: JSON.stringify(service)
         })
+            .then(data => {
+                if (data.status === 200) {
+                    toast.success("Service is added successfully")
+                } else {
+                    toast.error("Unfortunately, service is not added")
+                }
+            })
+            .catch(error => toast.error(error.message))
+
+
+
+
+        form.reset()
     }
 
     return (
