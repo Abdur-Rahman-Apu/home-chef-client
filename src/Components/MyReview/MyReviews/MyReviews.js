@@ -20,7 +20,14 @@ const MyReviews = () => {
                 authorization: `Bearer ${localStorage.getItem('genius-token')}`
             }
         })
-            .then(res => res.json())
+            .then(res => {
+
+                if (res.status === 401 || res.status === 403) {
+                    logOut()
+                    navigate('/login')
+                }
+                return res.json()
+            })
             .then(data => {
                 setReviews(data)
                 console.log(data);

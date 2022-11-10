@@ -3,19 +3,22 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import google from '../../Assets/Google logo/google.svg'
 import { AuthContext } from '../Contexts/AuthProvider/AuthProvider';
 import toast from 'react-hot-toast';
+import Loader, { Oval } from 'react-loader-spinner'
 
 const Login = () => {
 
     document.title = "HomeChef - Log in"
 
-    const { user, logIn, setUser, googleLogIn, resetPassword, loading } = useContext(AuthContext)
+    const { user, logIn, setUser, googleLogIn, resetPassword } = useContext(AuthContext)
 
+    const [loading, setLoading] = useState(false)
     const location = useLocation()
     const navigate = useNavigate()
 
     const from = location?.state?.from.pathname || '/'
 
     const handleLogIn = (event) => {
+        setLoading(true)
         event.preventDefault()
         const form = event.target;
         const email = form.email.value;
@@ -26,6 +29,7 @@ const Login = () => {
                 setUser(user)
                 toast.success("Log in Successfully")
                 navigate(from, { replace: true })
+
                 const currentUser = {
                     email: user?.email
                 }
@@ -41,6 +45,9 @@ const Login = () => {
                     .then(res => res.json())
                     .then(data => {
                         console.log(data)
+                        setLoading(false)
+
+
 
                         localStorage.setItem('genius-token', data.token)
                         navigate(from, { replace: true })
@@ -86,6 +93,23 @@ const Login = () => {
 
     }
 
+    if (loading) {
+        return <div className='flex justify-center items-center h-4/5'>
+            <Oval
+                height={80}
+                width={80}
+                color="#4fa94d"
+                wrapperStyle={{}}
+                wrapperClass=""
+                visible={true}
+                ariaLabel='oval-loading'
+                secondaryColor="#4fa94d"
+                strokeWidth={2}
+                strokeWidthSecondary={2}
+
+            />
+        </div>
+    }
 
     return (
         <div>
