@@ -20,33 +20,61 @@ const MyReviews = () => {
                 authorization: `Bearer ${localStorage.getItem('genius-token')}`
             }
         })
-            .then(res => {
-                if (res.status === 401 || res.status === 403) {
-                    logOut()
-                    navigate('/login')
-                }
-                return res.json()
+            .then(res => res.json())
+            .then(data => {
+                setReviews(data)
+                console.log(data);
             })
-            .then(data => setReviews(data))
             .catch(error => console.log(error))
     }, [user?.email])
 
 
     // delete 
 
-    const handleDelete = (serviceId) => {
-        fetch(`http://localhost:5000/reviews/${serviceId}`, {
+    const handleDelete = (id) => {
+        fetch(`http://localhost:5000/reviews/${id}`, {
             method: 'DELETE'
         })
             .then(res => res.json())
             .then(data => {
                 if (data.deletedCount > 0) {
-                    const remaining = reviews.filter(review => review.serviceId != serviceId)
+                    const remaining = reviews.filter(review => review._id !== id)
                     setReviews(remaining)
                     toast.success("deleted successfully")
                 }
             })
     }
+    // update 
+
+    const [msg, setMsg] = useState("")
+    const updateReview = (event, id) => {
+        event.preventDefault()
+        console.log(id);
+        const form = event.target;
+        const review = form.message.value;
+        console.log("clicked", review);
+        console.log("update value", id);
+        fetch(`http://localhost:5000/reviews/${id}`, {
+            method: 'PUT',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify({ message: review })
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.modifiedCount > 0) {
+                    // setMsg(review)
+                    toast.success("Updated successfully")
+                }
+            })
+            .catch(error => toast.error(error.message))
+
+        form.reset()
+
+    }
+
+
 
     return (
         <div>
@@ -78,7 +106,7 @@ const MyReviews = () => {
                                 <tbody>
 
                                     {
-                                        reviews.map(review => <MyReview key={review._id} review={review} handleDelete={handleDelete}></MyReview>)
+                                        reviews.map(review => <MyReview key={review._id} review={review} msg={msg} handleDelete={handleDelete} updateReview={updateReview}></MyReview>)
                                     }
 
                                 </tbody>

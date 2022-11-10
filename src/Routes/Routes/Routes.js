@@ -10,6 +10,7 @@ import AddService from "../../Components/AddService/AddService"
 import PrivateRoute from "../PrivateRoute/PrivateRoute"
 import ErrorPage from "../../Components/ErrorPage/ErrorPage"
 import MyReviews from "../../Components/MyReview/MyReviews/MyReviews"
+import ChangeReview from "../../Components/MyReview/ChangeReview/ChangeReview"
 
 
 export const router = createBrowserRouter([
@@ -44,6 +45,11 @@ export const router = createBrowserRouter([
             {
                 path: '/myReviews',
                 element: <PrivateRoute><MyReviews></MyReviews></PrivateRoute>
+            },
+            {
+                path: '/changeReview/:id',
+                element: <ChangeReview></ChangeReview>,
+                loader: ({ params }) => fetch(`http://localhost:5000/changeReview/${params.id}`)
             },
             {
                 path: '/service/:id',

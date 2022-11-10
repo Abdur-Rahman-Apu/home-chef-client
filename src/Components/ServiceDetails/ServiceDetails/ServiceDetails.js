@@ -1,9 +1,10 @@
-import React, { useContext } from 'react';
-import { useLoaderData } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+import { useLoaderData, useNavigate, useSearchParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
 import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
 import toast from 'react-hot-toast';
+import Reviews from '../Reviews/Reviews';
 
 
 
@@ -11,7 +12,9 @@ const ServiceDetails = () => {
 
     document.title = "HomeChef - Service Details"
 
-    const { user } = useContext(AuthContext);
+    const { user, logOut } = useContext(AuthContext);
+
+    const navigate = useNavigate()
 
     const data = useLoaderData()
     const { available, deliveryCharge, description, price, serviceId, title, _id, image, rating } = data;
@@ -31,7 +34,7 @@ const ServiceDetails = () => {
             userName: user.displayName,
             email: user.email,
             userImage: user.photoURL,
-            serviceId: _id,
+            serviceId,
             message: reviewMessage,
             rating,
             addedTime: new Date()
@@ -58,10 +61,24 @@ const ServiceDetails = () => {
         form.reset()
     }
 
+
+    //get reviews
+    const [reviews, setReviews] = useState([])
+
+    useEffect(() => {
+        fetch(`http://localhost:5000/reviews/${serviceId}`, {
+            authorization: `Bearer ${localStorage.getItem('genius-token')}`
+        }
+        )
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                setReviews(data)
+            })
+    }, [serviceId])
+
     return (
         <div>
-
-
             <div>
                 <h1 className='text-4xl text-center mt-4 font-extrabold dark:text-white'>Product Details</h1>
             </div>
@@ -140,8 +157,8 @@ const ServiceDetails = () => {
 
                 {/* Other reviews  */}
                 <div>
-                    <h1 className='text-3xl text-center text-yellow-400 font-bold my-5'>Customer Reviews</h1>
 
+                    <h1 className='text-3xl text-center text-yellow-400 font-bold my-5'>Customer Reviews</h1>
 
                     <div class="overflow-x-auto  relative ">
                         <table class="w-2/4 mx-auto mt-5 text-sm text-left text-gray-500 dark:text-gray-400">
@@ -158,35 +175,9 @@ const ServiceDetails = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-
-                                    <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        <div className='flex items-center gap-10'>
-                                            {/* avatar  */}
-                                            <div className="avatar">
-                                                <div className="w-20 rounded-full">
-                                                    <img src="https://placeimg.com/192/192/people" alt="avatar" />
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <div className='flex justify-center items-center gap-5'>
-                                                    <h4 class="text-2xl font-bold dark:text-white">Tom</h4>
-                                                    <p class="font-light text-gray-500 dark:text-gray-400">
-                                                        23/12/2023
-                                                    </p>
-                                                </div>
-                                                <p className='text-sans'>Review</p>
-                                            </div>
-                                        </div>
-                                    </th>
-                                    <td class="py-4 px-6 flex gap-1">
-                                        <svg aria-hidden="true" class="w-5 h-5 text-yellow-300" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>First star</title><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
-                                        <p>3.4</p>
-                                    </td>
-
-
-                                </tr>
-
+                                {
+                                    reviews.map(review => <Reviews key={review._id} review={review}></Reviews>)
+                                }
                             </tbody>
                         </table>
                     </div>
@@ -207,7 +198,6 @@ const ServiceDetails = () => {
 
                                     <label htmlFor="message" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Your Review</label>
                                     <textarea name='review' id="message" rows="4" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Your review..."></textarea>
-
                                 </div>
 
                                 <div className='my-5'>

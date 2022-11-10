@@ -23,13 +23,15 @@ const AddService = () => {
         const title = form.title.value;
         const image = form.image.value;
         const shortDescription = form.shortDescription.value;
-        const ingredients = form.ingredients.value;
+        const ingredients = (form.ingredients.value).split(',');
         const procedure = form.procedure.value;
         const available = form.available.value;
         const deliveryCharge = form.deliveryCharge.value;
         const rating = form.rating.value;
         const price = form.price.value;
         const serviceId = services.length + 1;
+
+
 
         console.log(title, image, shortDescription, ingredients, procedure, available, deliveryCharge, rating);
 
@@ -92,7 +94,7 @@ const AddService = () => {
                     </div>
                     <div className='my-5'>
                         <label htmlFor="ingredients" className="block mb-2 text-sm font-bold text-gray-900 dark:text-gray-400">Ingredients</label>
-                        <textarea name='ingredients' id="ingredients" rows="4" type="text" placeholder="Type here" className="input input-bordered input-md w-full" />
+                        <textarea name='ingredients' id="ingredients" rows="4" type="text" placeholder="Add ingredients using comma" className="input input-bordered input-md w-full" />
                     </div>
                     <div className='my-5'>
                         <label htmlFor="procedure" className="block mb-2 text-sm font-bold text-gray-900 dark:text-gray-400">Procedure</label>
