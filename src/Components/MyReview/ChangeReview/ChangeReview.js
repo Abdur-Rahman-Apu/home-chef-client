@@ -14,7 +14,7 @@ const ChangeReview = () => {
         const review = form.message.value;
         console.log(message);
 
-        fetch(`http://localhost:5000/changeReview/${_id}`, {
+        fetch(`https://homechef.vercel.app/changeReview/${_id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'

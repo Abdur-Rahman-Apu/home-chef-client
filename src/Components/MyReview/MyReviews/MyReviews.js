@@ -15,7 +15,7 @@ const MyReviews = () => {
     const [reviews, setReviews] = useState([])
 
     useEffect(() => {
-        fetch(`http://localhost:5000/reviews?email=${user?.email}`, {
+        fetch(`https://homechef.vercel.app/reviews?email=${user?.email}`, {
             headers: {
                 authorization: `Bearer ${localStorage.getItem('genius-token')}`
             }
@@ -39,7 +39,7 @@ const MyReviews = () => {
     // delete 
 
     const handleDelete = (id) => {
-        fetch(`http://localhost:5000/reviews/${id}`, {
+        fetch(`https://homechef.vercel.app/reviews/${id}`, {
             method: 'DELETE'
         })
             .then(res => res.json())
@@ -61,7 +61,7 @@ const MyReviews = () => {
         const review = form.message.value;
         console.log("clicked", review);
         console.log("update value", id);
-        fetch(`http://localhost:5000/reviews/${id}`, {
+        fetch(`https://homechef.vercel.app/reviews/${id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'

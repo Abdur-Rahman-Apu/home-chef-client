@@ -14,7 +14,7 @@ const Home = () => {
     const [services, setServices] = useState([])
 
     useEffect(() => {
-        fetch('http://localhost:5000/services?show=3')
+        fetch('https://homechef.vercel.app/services?show=3')
             .then(res => res.json())
             .then(data => {
                 console.log(data);

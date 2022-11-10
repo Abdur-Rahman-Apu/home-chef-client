@@ -13,7 +13,7 @@ const MyReview = ({ review, handleDelete, updateReview }) => {
     console.log("review", review);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/service/${serviceId}`)
+        fetch(`https://homechef.vercel.app/service/${serviceId}`)
             .then(res => res.json())
             .then(data => {
                 console.log(data);

@@ -41,7 +41,7 @@ const ServiceDetails = () => {
         }
 
 
-        fetch(('http://localhost:5000/reviews'), {
+        fetch(('https://homechef.vercel.app/reviews'), {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -66,7 +66,7 @@ const ServiceDetails = () => {
     const [reviews, setReviews] = useState([])
 
     useEffect(() => {
-        fetch(`http://localhost:5000/reviews/${serviceId}`, {
+        fetch(`https://homechef.vercel.app/reviews/${serviceId}`, {
             authorization: `Bearer ${localStorage.getItem('genius-token')}`
         }
         )

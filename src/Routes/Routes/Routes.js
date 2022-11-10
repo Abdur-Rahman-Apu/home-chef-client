@@ -49,12 +49,12 @@ export const router = createBrowserRouter([
             {
                 path: '/changeReview/:id',
                 element: <ChangeReview></ChangeReview>,
-                loader: ({ params }) => fetch(`http://localhost:5000/changeReview/${params.id}`)
+                loader: ({ params }) => fetch(`https://homechef.vercel.app/changeReview/${params.id}`)
             },
             {
                 path: '/service/:id',
                 element: <ServiceDetails></ServiceDetails>,
-                loader: ({ params }) => fetch(`http://localhost:5000/service/${params.id}`)
+                loader: ({ params }) => fetch(`https://homechef.vercel.app/service/${params.id}`)
             },
         ]
     },

@@ -11,7 +11,7 @@ const AddService = () => {
     const [services, setServices] = useState([])
 
     useEffect(() => {
-        fetch('http://localhost:5000/services')
+        fetch('https://homechef.vercel.app/services')
             .then(res => res.json())
             .then(data => setServices(data))
     }, [])
@@ -51,7 +51,7 @@ const AddService = () => {
             serviceId
         }
 
-        fetch(`http://localhost:5000/services`, {
+        fetch(`https://homechef.vercel.app/services`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
