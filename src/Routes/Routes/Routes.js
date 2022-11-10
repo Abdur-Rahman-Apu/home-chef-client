@@ -7,8 +7,9 @@ import Services from "../../Components/Services/Services/Services"
 import Main from "../../Layouts/Main"
 import Home from "../../Components/Home/Home/Home"
 import AddService from "../../Components/AddService/AddService"
-import MyReview from "../../Components/MyReview/MyReview/MyReview"
 import PrivateRoute from "../PrivateRoute/PrivateRoute"
+import ErrorPage from "../../Components/ErrorPage/ErrorPage"
+import MyReviews from "../../Components/MyReview/MyReviews/MyReviews"
 
 
 export const router = createBrowserRouter([
@@ -41,8 +42,8 @@ export const router = createBrowserRouter([
                 element: <PrivateRoute><AddService></AddService></PrivateRoute>
             },
             {
-                path: '/myReview',
-                element: <PrivateRoute><MyReview></MyReview></PrivateRoute>
+                path: '/myReviews',
+                element: <PrivateRoute><MyReviews></MyReviews></PrivateRoute>
             },
             {
                 path: '/service/:id',
@@ -51,6 +52,10 @@ export const router = createBrowserRouter([
             },
         ]
     },
+    {
+        path: "*",
+        element: <ErrorPage></ErrorPage>
+    }
 
 
 ])

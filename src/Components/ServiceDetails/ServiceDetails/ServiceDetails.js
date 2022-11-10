@@ -2,9 +2,9 @@ import React, { useContext } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
-import Navbar from '../../Shared/Navbar/Navbar';
 import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
-import Footer from '../../Shared/Footer/Footer';
+import toast from 'react-hot-toast';
+
 
 
 const ServiceDetails = () => {
@@ -19,8 +19,45 @@ const ServiceDetails = () => {
     const { ingredients, procedure, shortDescription } = description;
 
     const steps = procedure.split(',')
-    console.log(steps);
-    console.log(data);
+
+
+    const handleReviewSubmit = (event) => {
+        event.preventDefault()
+        const form = event.target;
+        const reviewMessage = form.review.value;
+        const rating = form.rating.value;
+
+        const review = {
+            userName: user.displayName,
+            email: user.email,
+            userImage: user.photoURL,
+            serviceId: _id,
+            message: reviewMessage,
+            rating,
+            addedTime: new Date()
+        }
+
+
+        fetch(('http://localhost:5000/reviews'), {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(review)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                if (data.acknowledged) {
+                    toast.success('Review added successfully')
+                }
+            })
+            .catch(error => toast.error(error.message))
+
+
+        form.reset()
+    }
+
     return (
         <div>
 
@@ -165,17 +202,17 @@ const ServiceDetails = () => {
 
                     {
                         user?.email ?
-                            <form >
+                            <form onSubmit={handleReviewSubmit}>
                                 <div className='w-1/2'>
 
-                                    <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Your Review</label>
-                                    <textarea id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Your review..."></textarea>
+                                    <label htmlFor="message" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Your Review</label>
+                                    <textarea name='review' id="message" rows="4" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Your review..."></textarea>
 
                                 </div>
 
                                 <div className='my-5'>
-                                    <label for="rating" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Rating</label>
-                                    <input id="rating" type="text" placeholder="Type here" className="input input-bordered input-md w-full max-w-xs" />
+                                    <label htmlFor="rating" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Rating</label>
+                                    <input name="rating" id="rating" type="text" placeholder="Type here" className="input input-bordered input-md w-full max-w-xs" />
                                 </div>
 
                                 <input className="btn btn-warning" type="submit" value="Add" />
