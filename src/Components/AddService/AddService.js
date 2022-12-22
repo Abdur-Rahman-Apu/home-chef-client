@@ -4,7 +4,7 @@ import { AuthContext } from '../Contexts/AuthProvider/AuthProvider';
 
 const AddService = () => {
 
-    document.title = "HomeChef - Add Service"
+    document.title = "HouseChef - Add Service"
 
     const { user } = useContext(AuthContext)
 

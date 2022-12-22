@@ -53,7 +53,7 @@ const Navbar = () => {
                     </div>
                     <Link to="/" className="flex items-center">
                         <img src={Logo} className="mr-3 h-6 sm:h-16" alt="Logo" />
-                        <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Home Chef</span>
+                        <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">House Chef</span>
                     </Link>
                 </div>
                 <div className="navbar-center hidden lg:flex">

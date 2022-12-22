@@ -74,7 +74,7 @@ const Login = () => {
 
     //forget password
     const handleResetPassword = (event) => {
-        const form = event.target.parentElement.parentElement;
+        const form = event.target.parentNode.parentNode;
         console.log(form);
         const email = form?.email?.value;
         console.log(email);

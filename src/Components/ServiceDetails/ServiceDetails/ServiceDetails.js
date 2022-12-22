@@ -10,7 +10,7 @@ import Reviews from '../Reviews/Reviews';
 
 const ServiceDetails = () => {
 
-    document.title = "HomeChef - Service Details"
+    document.title = "HouseChef - Service Details"
 
     const { user, logOut } = useContext(AuthContext);
 
